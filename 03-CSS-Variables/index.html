@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scoped CSS Variables and JS</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <h3>Update CSS Variables with <span class='hl'>JS</span></h3>
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <!-- 
+      <input type="range"> defines a range control (like a slider control)
+      name attribute specifies a name for the HTML element
+      min attribute specifies the minimum value for an input element
+      max attribute specifies the maximum value for an input element
+      min and max attribute together creates a range of values
+      value attribute specifies the initial value of the element 
+    -->
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base:</label>
+    <!-- 
+      <input type="color"> defines a color picker
+      name attribute specifies a name for the HTML element
+      value attribute specifies the initial value of the element 
+    -->
+    <input id="base" type="color" name="base" value="#ffc600">
+  </div>
+
+  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  
+</body>
+</html>
