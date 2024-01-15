@@ -93,6 +93,72 @@
 
   <script>
     const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+    const cities = [];
+    /* 
+    // fetch returns a promise
+    const prom = fetch(endpoint);
+    console.log(prom) // Promise {<pending>}
+
+    .then(blobOfData => console.log(blobOfData))
+      // Response {type: 'cors', url: 'https://gist.githubusercontent.com/Miserlou/c5cd83…258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json', redirected: false, status: 200, ok: true, …}
+
+    .then(data => console.log(data))
+      // .then(data) will fetch the raw data
+
+    
+    */
+    fetch(endpoint)
+      .then(blobOfData => blobOfData.json())
+        // .json will bring another promise
+      .then(data => cities.push(...data));
+        // spread into a function
+      console.log(cities) // data of all the cities in const variable
+
+    function findMatches(wordToMatch, cities) {
+      // .filter method creates a new array filled with elements that pass a text provided by a function
+      return cities.filter(place => {
+        // here we need to figure out if the city or state matches what was searched
+        const regex = new RegExp(wordToMatch, 'gi');
+        // .match method matches a string against a regular expression
+        return place.city.match(regex) || place.state.match(regex)
+      });
+    }
+
+    function numberWithCommas(x) {
+      // .toString method returns a string with array values separated by commas
+      // .replace method searches a string for a value or a regular expression
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    
+    function displayMatches() {
+      console.log(this.value);
+      const matchArray = findMatches(this.value, cities);
+      console.log(matchArray);
+      const html = matchArray.map(place => {
+        // map bring back an array
+        const regex = new RegExp(this.value, 'gi');
+        // g = globally, i = insensitive
+        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        return `
+          <li>
+            <span class="name">${cityName}, ${stateName}</span>
+            <span class="population">${numberWithCommas(place.population)}</span>
+          </li>
+          `;
+      }).join(''); // .join will bring back a string
+      suggestions.innerHTML = html;
+    }
+
+    const searchInput = document.querySelector('.search');
+    const suggestions = document.querySelector('.suggestions');
+
+    // the addEventListener() method to attach a "change" event to an input element
+    searchInput.addEventListener('change', displayMatches);
+    // change event occurs when the value of the HTML element is changed
+    searchInput.addEventListener('keyup', displayMatches);
+    // keyup event occurs when the user releases a key on the keyboard
   </script>
 </body>
 </html>
