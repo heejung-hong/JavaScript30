@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="./cornify.js"></script>
+</head>
+<body>
+  <script>
+
+    const pressed = [];
+    const secretCode = 'hello';
+
+    // keyup pressing any key
+    window.addEventListener('keyup', (e) => {
+      console.log(e.key);
+      // push() method adds new items to the end of an array
+      pressed.push(e.key);
+      // splice() method adds and/or removes array elements
+      pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+      // join() method returns an array as a string
+      // includes() method returns true if an array contains a specified value and returns false if the value is not found
+      if (pressed.join('').includes(secretCode)) {
+        console.log('DING DING!')
+        cornify_add();
+      }
+      console.log(pressed);
+    })
+  </script>
+</body>
+</html>
