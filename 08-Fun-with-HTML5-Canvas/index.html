@@ -36,7 +36,7 @@
     let direction = true;
 
     function draw(e) {
-      if(!isDrawing) return; // stop the fn from running when they are not moused down
+      if (!isDrawing) return; // stop the fn from running when they are not moused down
       console.log(e)
       // HSL stands for Hue, Saturation, and Lightness
       // hsl(0, 100%, 50%)
@@ -55,15 +55,15 @@
       [lastX, lastY] = [e.offsetX, e.offsetY] // destructuring an array
 
       hue++;
-      if(hue >= 360) {
+      if (hue >= 360) {
         hue = 0;
       }
 
-      if(ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
         direction = !direction;
       }
 
-      if(direction) {
+      if (direction) {
         ctx.lineWidth++;
       } else {
         ctx.lineWidth--;

@@ -107,18 +107,18 @@
       let inBetween = false;
       // shiftKey property returns true if the shift key is pressed when a mouse event is triggered, otherwise it returns false.
       // checked property sets or returns the checked state of a checkbox.
-      if(e.shiftKey && this.checked) {
+      if (e.shiftKey && this.checked) {
         // go ahead and do what we please
         // loop over every single checkbox
         // forEach() method calls a function for each element in an array
         checkboxes.forEach(checkbox => {
           console.log(checkbox);
-          if(checkbox === this || checkbox === lastChecked) {
+          if (checkbox === this || checkbox === lastChecked) {
             inBetween = !inBetween;
             console.log('Starting to check them in between!')
           }
 
-          if(inBetween) {
+          if (inBetween) {
             // checked property sets or returns the checked state of a checkbox.
             checkbox.checked = true;
           }

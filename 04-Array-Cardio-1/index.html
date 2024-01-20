@@ -29,7 +29,7 @@
     // filter() method creates a new array with array elements that pass a test
     // 1. Filter the list of inventors for those who were born in the 1500's
     const fifteen = inventors.filter(inventor => {
-      if(inventor.year >= 1500 && inventor.year < 1600) {
+      if (inventor.year >= 1500 && inventor.year < 1600) {
         return true; // keep it!
       }
     });
@@ -58,7 +58,7 @@
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     const ordered = inventors.sort(function(a, b) {
-      if(a.year > b.year) {
+      if (a.year > b.year) {
         return 1;
       } else {
         return -1;
@@ -129,7 +129,7 @@
     // Sum up the instances of each of these
     const transportation = data.reduce(function(obj, item) {
       console.log(item);
-      if(!obj[item]) {
+      if (!obj[item]) {
         obj[item] = 0
       }
       obj[item]++;
