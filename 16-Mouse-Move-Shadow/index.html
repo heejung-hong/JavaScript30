@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Shadow</title>
+</head>
+<body>
+  <style>
+    html {
+      color: black;
+      font-family: sans-serif;
+    }
+  
+    body {
+      margin: 0;
+    }
+  
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+  
+    h1 {
+      text-shadow: 10px 10px 0 rgba(0,0,0,1);
+      font-size: 100px;
+    }
+  </style>
+
+  <div class="hero">
+    <h1 contenteditable>🔥WOAH!</h1>
+  </div>
+
+  <script>
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h1');
+    const walk = 500; // 500px
+
+    function shadow(e) {
+      // console.log(e);
+      // const width = hero.offsetWidth;
+      // const height = hero.offsetHeight;
+      const { offsetWidth: width, offsetHeight: height } = hero; // this is the two lines above combined to one line
+      // offsetX and offsetY to get the position of the cursor
+      let { offsetX: x, offsetY: y } = e;
+      // console.log(x, y); // returning the e of hero element not the h1 element
+      // console.log(this); // returns the div and h1 child listened on
+      // console.log(this, e.target); // target is the thing that actually triggered on
+      if (this !== e.target) {
+        x = y + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+      // console.log(x, y); // no more zeros at the topLeft corner of div
+      // Math.round method rounds a number to the nearest integer
+      const xWalk = Math.round((x / width * walk) - (walk /2));
+      const yWalk = Math.round((y / height * walk) - (walk /2));
+      // console.log(xWalk, yWalk); // returning pixel values
+      // .textShadow property adds shadow to text
+      text.style.textShadow = `
+        ${xWalk}px ${yWalk}px 0 DeepPink,
+        ${xWalk * -1}px ${yWalk}px 0 DodgerBlue,
+        ${yWalk}px ${xWalk}px 0 Gold,
+        ${yWalk * -1}px ${xWalk}px 0 DarkTurquoise
+        `;
+    }
+
+    hero.addEventListener('mousemove', shadow);
+  </script>
+</body>
+</html>

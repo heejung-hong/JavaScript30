@@ -155,9 +155,11 @@
     }
 
     function toggleDone(e) {
+      // e.target property returns the element where the event occured.
       if(!e.target.matches('input')) return; // skip this unless it's an input
       console.log(e.target);
       const el = e.target;
+      // dataset.index is referring to data-index of input element
       const index = el.dataset.index;
       items[index].done = !items[index].done;
       localStorage.setItem('items', JSON.stringify(items));
