@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech Detection</title>
+</head>
+<body>
+  <style>
+    html {
+      font-size: 10px;
+    }
+
+    body {
+      background: #ffc600;
+      font-family: 'helvetica neue';
+      font-weight: 200;
+      font-size: 20px;
+    }
+
+    .words {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+      padding: 1rem 2rem 1rem 5rem;
+      background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+      background-size: 100% 3rem;
+      position: relative;
+      line-height: 3rem;
+    }
+
+    p {
+      margin: 0 0 3rem;
+    }
+
+    .words:before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      top: 0;
+      left: 30px;
+      bottom: 0;
+      border: 1px solid;
+      border-color: transparent #efe4e4;
+    }
+  </style>
+
+  <div class="words" contenteditable>
+  </div>
+
+  <script>
+    // set for SpeechRecognition even if it is webkitSpeechRecognition
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    // new instance of speechRecognition
+    // SpeechRecognition() constructor creates a new SpeechRecognition object instance
+    const recognition = new SpeechRecognition();
+    // interimResults property of the SpeechRecognition interface controls whether interim results should be returned true or false
+    recognition.interimResults = true; // as speaking starts to populate so see as we speak
+    // land property of the SpeechRecognition interface returns the sets and language of the current SpeechRecognition
+    recognition.lang = 'en-US';
+    // createElement()(method creates an element node) creates a new paragraph when you pause speaking
+    let p = document.createElement('p');
+    const words = document.querySelector('.words');
+    // appendChild() method appends a node (element) as the last child of an element
+    words.appendChild(p);
+    // listening for result just like listening for clicks
+    recognition.addEventListener('result', e => {
+      console.log(e.results);
+      // convert nested result into an array first and then turn it into a string
+      // Array.from() method returns an array from any object with a length property or from any iterable object
+      // .transcript read-only property of the SpeechRecognitionResult interface returns a string containing the transcript of the recognized words
+      const transcript = Array.from(e.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('');
+      // textContent property sets or returns the text content of the specified node, and all its descendants
+      p.textContent = transcript;
+      // .isFinal read-only property of the SpeechRecognitionResult interface is a boolean value that states whether this result is final
+      if(e.results[0].isFinal) {
+        // to overwrite the let p to create new paragraphs
+        p = document.createElement('p');
+        words.appendChild(p);
+      }
+      if(transcript.includes('unicorn')) {
+        console.log('🦄')
+      }
+      console.log(transcript)
+    })
+
+    recognition.addEventListener('end', recognition.start); // when it ends run the recognition.start function
+
+    recognition.start(); 
+  </script>
+</body>
+</html>
