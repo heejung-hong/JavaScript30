@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👀👀👀Follow Along Nav</title>
+</head>
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0; /* Important! */
+      font-family: sans-serif;
+      background:
+        linear-gradient(45deg, rgba(255, 115, 162, 0.632) 0%, hsla(340, 100%, 55%, 0) 70%),
+        linear-gradient(135deg, rgba(122, 155, 255, 0.426) 10%, hsla(225, 95%, 50%, 0) 80%),
+        linear-gradient(225deg, rgba(129, 248, 218, 0.529) 10%, hsla(140, 90%, 50%, 0) 80%),
+        linear-gradient(315deg, rgba(252, 218, 126, 0.527) 100%, hsla(35, 95%, 55%, 0) 70%);
+    }
+
+    .wrapper {
+      margin: 0 auto;
+      max-width: 500px;
+      font-size: 20px;
+      line-height: 2;
+      position: relative;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      background: rgba(0,0,0,0.05);
+      border-radius: 20px;
+    }
+
+    .highlight {
+      transition: all 0.2s;
+      border-bottom: 2px solid white;
+      position: absolute;
+      top: 0;
+      background: white;
+      left: 0;
+      z-index: -1;
+      border-radius: 20px;
+      display: block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .menu {
+      padding: 0;
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      margin:100px 0;
+    }
+
+    .menu a {
+      display: inline-block;
+      padding: 5px;
+      margin: 0 20px;
+      color: black;
+    }
+  </style>
+
+  <nav>
+    <ul class="menu">
+      <li><a href="">Home</a></li>
+      <li><a href="">Order Status</a></li>
+      <li><a href="">Tweets</a></li>
+      <li><a href="">Read Our History</a></li>
+      <li><a href="">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrapper">
+    <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+    <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+    <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
+    <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
+    <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+  </div>
+
+  <script>
+    // querySelectorAll for all 'a' elements
+    const triggers = document.querySelectorAll('a');
+    // create highlight
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    document.body.append(highlight);
+    // listen when someone enters the link
+    function highlightLink() {
+      console.log(this); // returning a elements
+      // .getBoundingClientRect() method returns a DOMRect object with eight properties: left, top, right, bottom, x, y, width, height
+      const linkCoords = this.getBoundingClientRect();
+      console.log(linkCoords);
+      // make own coordinates
+      const coords = {
+        width: linkCoords.width,
+        height: linkCoords.height,
+        top: linkCoords.top + window.scrollY,
+        left: linkCoords.left + window.scrollX
+      }
+      /*
+      highlight.style.width = `${linkCoords.width}px`;
+      highlight.style.height = `${linkCoords.height}px`;
+      highlight.style.transform = `translate(${linkCoords.left}px, ${linkCoords.top}px)`
+      */
+      // refactor code to implement custom coordinates
+      highlight.style.width = `${coords.width}px`;
+      highlight.style.height = `${coords.height}px`;
+      highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`
+    }
+
+    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+  </script>
+</body>
+</html>
