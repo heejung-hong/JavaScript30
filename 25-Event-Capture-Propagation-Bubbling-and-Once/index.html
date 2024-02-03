@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+  
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+  
+    div {
+      width: 100%;
+      padding: 100px;
+    }
+  
+    .one {
+      background: thistle;
+    }
+  
+    .two {
+      background: mistyrose;
+    }
+  
+    .three {
+      background: coral;
+    }
+  </style>
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+  <button>Button</button>
+  
+  <script>
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
+
+    function logText(e) {     
+      console.log(this.classList.value);
+      // e.stopPropagation(); // stop bubbling
+      // console.log(this)
+
+    }
+
+    divs.forEach(div => div.addEventListener('click', logText, {
+      // firing as it is capturing down
+      capture: false,
+      once: true // unbind after running once.
+    }))
+    // use in store checkout button so that only clicked once
+    button.addEventListener('click', () => {
+      console.log('click!!!')
+    }, {
+      once: true // prevent from clicking more than once
+    })
+
+    // Capture going down. Bubbling up and firing off the events
+  </script>
+</body>
+</html>
